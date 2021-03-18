@@ -3,6 +3,12 @@ set -e          # exit on error
 set -u          # fail if variable is undefined
 set -o pipefail # fail if command in pipe chain fails
 
+# Fill memory with random bytes. Argument given in MB
+function generate-memory-usage {
+    local required="${1:?}"
+    MEMBLOB=$(dd if=/dev/urandom bs=1MB count=${required}); sleep 30
+}
+
 function relative-path-to-script-dir {
     dirname "${BASH_SOURCE[0]}"
 }
